@@ -9,7 +9,7 @@ logging.basicConfig(
 )
 
 # create a message to log.info
-logging.info("Client on!")
+logging.info("Erro de login")
 
 # recive the value from log
 value_log = strm.getvalue()
