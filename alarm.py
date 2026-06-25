@@ -1,4 +1,4 @@
-import re 
+import re, os
 
 padroes_suspeitos = {
     "Brute Force": r"Erro de login|Falha na autenticação|Senha incorreta",
@@ -16,11 +16,13 @@ def analyzing_logs(way):
             for num_line, line in enumerate(arquivo, 1):
                 for threat_type, regex in padroes_suspeitos.items():
                     if re.search(regex, line, re.IGNORECASE):
-                        alarm()
+                        alarm(num_line, threat_type)
     except FileNotFoundError:
         print(f"Error: The archive ´{way}´ do not can be found.")
-
-def alarm():
-    print("ALERT")
+        
+os.system('cls')
+def alarm(num_line, threat_type):
+    
+    print(f"ALERT| A possible ´{threat_type}´ found in line ´{num_line}´")
 
 analyzing_logs("log.txt")
