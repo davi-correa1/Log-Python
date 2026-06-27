@@ -1,7 +1,8 @@
 import re, os
 
+# Set some 
 padroes_suspeitos = {
-    "Brute Force": r"Erro de login|Falha na autenticação|Senha incorreta",
+    "Brute Force": r"Logging error|Falha na autenticação|Incorrect password",
 
     "SQL Ijection Attack (SQLi)": r"SELECT \* FROM|UNION SELECT|OR '1'='1|DROP TABLE",
 
@@ -9,20 +10,39 @@ padroes_suspeitos = {
 }
 
 def analyzing_logs(way):
+    # Clean the terminal
+    os.system('cls')
     print("Analyzing...\n")
 
     try:
-        with open(way, "r", encoding="utf-8") as arquivo:
-            for num_line, line in enumerate(arquivo, 1):
+        # Open the file in read mode("r")
+        with open(way, "r", encoding="utf-8") as file:
+
+            # Considers the file contaminated until verified
+            anyThreatFound = True
+
+            # Take it one line at a time
+            for num_line, line in enumerate(file, 1):
+
+                # Checks if the line contains a threat
                 for threat_type, regex in padroes_suspeitos.items():
+
+                    # Triggers the alarm if there is a threat
                     if re.search(regex, line, re.IGNORECASE):
                         alarm(num_line, threat_type)
-    except FileNotFoundError:
-        print(f"Error: The archive ´{way}´ do not can be found.")
-        
-os.system('cls')
-def alarm(num_line, threat_type):
-    
-    print(f"ALERT| A possible ´{threat_type}´ found in line ´{num_line}´")
+                        # It only changes the file attribute to the code.
+                        anyThreatFound = not anyThreatFound 
 
-analyzing_logs("log.txt")
+            # Sends a message if there is no threat
+            if anyThreatFound:
+                print("No threats were found!")
+
+    # Sends a message if the file cannot be found
+    except FileNotFoundError:
+        print(f"ERROR| The flie ´{way}´ does not exist.")
+        
+def alarm(num_line, threat_type):
+    print(f"🚨 ALERT | A possible ´{threat_type}´ found in line ´{num_line}´!")
+
+# Call the function and pass the "way"
+analyzing_logs("app.log")
