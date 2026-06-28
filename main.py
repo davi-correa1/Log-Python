@@ -1,13 +1,10 @@
-import logging, io, os
-
-strm = io.StringIO()
+import logging, io, os, time
 
 logging.basicConfig(
-    stream=strm,
     format="%(levelname)s| %(asctime)s - %(message)s",
-    level=logging.DEBUG
+    level=logging.DEBUG,
+    filename='app.log',
 )
-
 
 # sign up
 def interface():
@@ -17,7 +14,7 @@ def interface():
 
     # Choose the password
     password = input("Choose a password: ")
-    print("_" * 25, "\n")
+    print("=" * 25, "\n")
     password2 = input("Confirm the password, please: ")
 
     # Sends a message if the password is correct
@@ -27,18 +24,11 @@ def interface():
 
     # Sends a message if the password is incorrect
     else:
-        logging.error("Logging error1")
+        logging.error("Logging error!")
         print("password incorrect, try again...")
+        time.sleep(1)
 
         # Call the function again
         return interface()
-
-# recive the value from log
-value_log = strm.getvalue()
-def sendMessage(value_log):
-    with open("app.log", "a", encoding="utf-8") as arquivo:
-        arquivo.write(value_log)
-
-
 
 interface()

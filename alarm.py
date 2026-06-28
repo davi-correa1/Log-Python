@@ -19,7 +19,7 @@ def analyzing_logs(way):
         with open(way, "r", encoding="utf-8") as file:
 
             # Considers the file contaminated until verified
-            anyThreatFound = True
+            anyThreatFound = False
 
             # Take it one line at a time
             for num_line, line in enumerate(file, 1):
@@ -31,10 +31,10 @@ def analyzing_logs(way):
                     if re.search(regex, line, re.IGNORECASE):
                         alarm(num_line, threat_type)
                         # It only changes the file attribute to the code.
-                        anyThreatFound = not anyThreatFound 
+                        anyThreatFound = True 
 
             # Sends a message if there is no threat
-            if anyThreatFound:
+            if not anyThreatFound:
                 print("No threats were found!")
 
     # Sends a message if the file cannot be found
@@ -42,7 +42,7 @@ def analyzing_logs(way):
         print(f"ERROR| The flie ´{way}´ does not exist.")
         
 def alarm(num_line, threat_type):
-    print(f"🚨 ALERT | A possible ´{threat_type}´ found in line ´{num_line}´!")
+    print(f"🚨 ALERT | A possible ´{threat_type}´ found in line ´{num_line}´!", "\n"*5)
 
 # Call the function and pass the "way"
 analyzing_logs("app.log")
