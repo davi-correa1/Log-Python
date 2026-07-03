@@ -42,7 +42,7 @@ def analyzing_logs(way):
         print(f"ERROR| The flie ´{way}´ does not exist.")
         
 def alarm(num_line, threat_type):
-    print(f"🚨 ALERT | A possible ´{threat_type}´ found in line ´{num_line}´!", "\n"*5)
+    print(f"🚨 ALERT | A possible ´{threat_type}´ found in line ´{num_line}´!", "\n")
 
 # Call the function and pass the "way"
 analyzing_logs("app.log")

@@ -1,4 +1,4 @@
-import logging, io, os, time
+import logging, os, time
 
 logging.basicConfig(
     format="%(levelname)s| %(asctime)s - %(message)s",
