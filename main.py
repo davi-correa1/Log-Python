@@ -1,34 +1,42 @@
-import logging, os, time
+abc="OIOI"
 
-logging.basicConfig(
-    format="%(levelname)s| %(asctime)s - %(message)s",
-    level=logging.DEBUG,
-    filename='app.log',
-)
+if __name__ == "__main__":
 
-# sign up
-def interface():
+    import logging, os, time
 
-    # Clean the terminal
-    os.system('cls')
+    logging.basicConfig(
+        format="%(levelname)s| %(asctime)s - %(message)s",
+        level=logging.DEBUG,
+        filename='app.log',
+        filemode='w'
+    )
 
-    # Choose the password
-    password = input("Choose a password: ")
-    print("=" * 25, "\n")
-    password2 = input("Confirm the password, please: ")
 
-    # Sends a message if the password is correct
-    if password == password2:
-        logging.info("Client's active!")
-        print("You're active!")
+    # sign up
+    def interface():
 
-    # Sends a message if the password is incorrect
-    else:
-        logging.error("Logging error!")
-        print("password incorrect, try again...")
-        time.sleep(1)
+        # Clean the terminal
+        os.system('cls')
 
-        # Call the function again
-        return interface()
+        # Choose the password
+        password = input("Choose a password: ")
+        print("=" * 25, "\n")
+        password2 = input("Confirm the password, please: ")
 
-interface()
+        # Sends a message if the password is correct
+        if password == password2:
+            logging.info("Client's active!")
+            print("You're active!")
+            time.sleep(1.5)
+            os.system('cls')
+
+        # Sends a message if the password is incorrect
+        else:
+            logging.error("Logging error!")
+            print("password incorrect, try again...")
+            time.sleep(1)
+
+            # Call the function again
+            return interface()
+
+    interface()
