@@ -1,12 +1,8 @@
 import re, os
 
-# Set some 
+# Set the threat
 padroes_suspeitos = {
-    "Brute Force": r"Logging error|Falha na autenticação|Incorrect password",
-
-    "SQL Ijection Attack (SQLi)": r"SELECT \* FROM|UNION SELECT|OR '1'='1|DROP TABLE",
-
-    "Path Attack": r"\.\./\.\./|\.\.\\\.\.\\|/etc/passwd",
+    "Possible Brute Force": r"Logging error",
 }
 
 def analyzing_logs(way):
@@ -39,7 +35,7 @@ def analyzing_logs(way):
 
     # Sends a message if the file cannot be found
     except FileNotFoundError:
-        print(f"ERROR| The flie ´{way}´ does not exist.")
+        print(f"ERROR| The file ´{way}´ does not exist.")
         
 def alarm(num_line, threat_type):
     print(f"🚨 ALERT | A possible ´{threat_type}´ found in line ´{num_line}´!", "\n")
